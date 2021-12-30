@@ -22,6 +22,27 @@ function loadItems() {
       </li>
       `;
   }
+  //Handle button click
+  funtion onButtonClick(event, items) {
+      const target = event.target;
+      const key = target.dataset.key;
+      const value = target.dataset.value;
+      if (key ===null || value === null) {
+          return;
+      }
+      updateItems(items, key, value);
+  }
+
+  //make the items matching (key: value) invisible.
+  function updateItem(items, key, value) {
+      items.forEach(item => {
+          if (item.dataset[key] === value) {
+              item.classList.remove('invisible');
+          }else {
+              item.classList.add('invisible');
+          }
+      });
+  }
   
   function onButtonClick(event, items) {
     const dataset = event.target.dataset;
@@ -32,7 +53,8 @@ function loadItems() {
       return;
     }
   
-    displayItems(items.filter(item => item[key] === value));
+    const filtered = items.filter(item => item[key] ===value);
+    displayItems(filtered);
   }
   
   function setEventListeners(items) {
